@@ -129,6 +129,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/promise" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/codedredd/laravel-soap" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpro/soap-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/vria/nodiacritic" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/stavarengo/php-sigep" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/stavarengo/php-sigep-fpdf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/breeze" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

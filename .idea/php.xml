@@ -122,6 +122,10 @@
       <path value="$PROJECT_DIR$/vendor/php-http/promise" />
       <path value="$PROJECT_DIR$/vendor/codedredd/laravel-soap" />
       <path value="$PROJECT_DIR$/vendor/phpro/soap-client" />
+      <path value="$PROJECT_DIR$/vendor/vria/nodiacritic" />
+      <path value="$PROJECT_DIR$/vendor/stavarengo/php-sigep" />
+      <path value="$PROJECT_DIR$/vendor/stavarengo/php-sigep-fpdf" />
+      <path value="$PROJECT_DIR$/vendor/laravel/breeze" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
