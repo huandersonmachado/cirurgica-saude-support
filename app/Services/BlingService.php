@@ -11,4 +11,9 @@ class BlingService
     {
         return Http::get('https://bling.com.br/Api/v2/pedidos/json/&filters=dataEmissao[01/04/2021 TO 30/04/2021]; idSituacao[9]?apikey='. env('BLING_API_KEY'));
     }
+
+    public function getPedido($numero)
+    {
+        return Http::get('https://bling.com.br/Api/v2/pedido/' . $numero . '/json/&apikey='. env('BLING_API_KEY'));
+    }
 }
