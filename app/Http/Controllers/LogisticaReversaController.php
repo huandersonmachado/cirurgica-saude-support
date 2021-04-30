@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Services\BlingService;
+use App\Services\CorreiosService;
 use Illuminate\Http\Request;
 
 class LogisticaReversaController extends Controller
 {
     private $blingService;
 
-    public function __construct(BlingService $blingService)
+    private $correiosService;
+
+    public function __construct(BlingService $blingService, CorreiosService $correiosService)
     {
         $this->blingService = $blingService;
+        $this->correiosService = $correiosService;
     }
 
     public function index()
@@ -24,5 +28,13 @@ class LogisticaReversaController extends Controller
         }
 
         return view('logisticaReversa.index', compact('pedidosBling'));
+    }
+
+    public function solicitarPostagem($numero)
+    {
+        $cliente = $this->blingService->getPedido($numero)->collect()['retorno']['pedidos'][0]['pedido']['cliente'];
+        $result = $this->correiosService->geraPostagemReversa($cliente);
+        dd($result);
+        return $result;
     }
 }

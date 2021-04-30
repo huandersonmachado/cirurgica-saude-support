@@ -25,4 +25,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('logisticaReversa', [LogisticaReversaController::class, 'index']);
+Route::middleware('auth')->group(function() {
+    Route::get('logisticaReversa', [LogisticaReversaController::class, 'index']);
+    Route::post('solicitarPostagem/{numero}',[LogisticaReversaController::class, 'solicitarPostagem'])->name('solicitarPostagem');
+});

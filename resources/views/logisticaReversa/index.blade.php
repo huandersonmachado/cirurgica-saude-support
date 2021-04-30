@@ -25,37 +25,50 @@
                     <table class="table-auto">
                         <thead>
                         <tr>
-                            <th>Data Do Pedido</th>
-                            <th>Número Loja Virtual</th>
-                            <th>Número No Bling</th>
-                            <th>Cliente</th>
-                            <th>CPF</th>
-                            <th>Nota Fiscal</th>
-                            <th>Total da Compra</th>
-                            <th>Ações</th>
+                            <th class="w-1/4">Data Do Pedido</th>
+                            <th class="w-1/4">Número Loja Virtual</th>
+                            <th class="w-1/4">Número No Bling</th>
+                            <th class="w-2/4">Cliente</th>
+                            <th class="w-2/4">CPF</th>
+                            <th class="w-1/4">Nota Fiscal</th>
+                            <th class="w-2/4">Total da Compra</th>
+                            <th class="w-2/4">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($pedidosBling['retorno']['pedidos'] as $pedido)
-                            <tr class={{ ($loop->index%2 == 0) ? 'bg-gray-100' : ''  }}>
-                                <td class="text-center">{{ $pedido['pedido']['data']  }}</td>
-                                <td class="text-center">{{ isset($pedido['pedido']['numeroPedidoLoja']) ?  $pedido['pedido']['numeroPedidoLoja'] : '' }}</td>
-                                <td class="text-center">{{ $pedido['pedido']['numero']  }}</td>
-                                <td class="text-center">{{ $pedido['pedido']['cliente']['nome']  }}</td>
-                                <td class="text-center">{{ $pedido['pedido']['cliente']['cnpj']  }}</td>
-                                <td class="text-center">{{ $pedido['pedido']['nota']['numero']  }}</td>
-                                <td class="text-center">R${{ $pedido['pedido']['totalvenda']  }}</td>
-                                <td class="text-center">
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        Gerar Reversa
-                                    </button>
-                                </td>
-                            </tr>
-                        @empty
+                        @if(array_key_exists('pedidos', $pedidosBling['retorno']))
+                            @forelse($pedidosBling['retorno']['pedidos'] as $pedido)
+                                <tr class={{ ($loop->index%2 == 0) ? 'bg-gray-100' : ''  }}>
+                                    <td class="text-center">{{ $pedido['pedido']['data']  }}</td>
+                                    <td class="text-center">{{ isset($pedido['pedido']['numeroPedidoLoja']) ?  $pedido['pedido']['numeroPedidoLoja'] : '' }}</td>
+                                    <td class="text-center">{{ $pedido['pedido']['numero']  }}</td>
+                                    <td class="text-center">{{ $pedido['pedido']['cliente']['nome']  }}</td>
+                                    <td class="text-center">{{ $pedido['pedido']['cliente']['cnpj']  }}</td>
+                                    <td class="text-center">{{ $pedido['pedido']['nota']['numero'] ?? ''  }}</td>
+                                    <td class="text-center">R${{ $pedido['pedido']['totalvenda']  }}</td>
+                                    <td class="text-center">
+                                        <form method="POST" action="{{ route('solicitarPostagem', $pedido['pedido']['numero']) }}">
+                                            @csrf
+                                            <button
+                                                onclick="event.preventDefault();
+                                                    this.closest('form').submit();"
+                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                Gerar Reversa
+                                            </button>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    Nenhum Pedido Encontrado
+                                </tr>
+                            @endforelse
+                        @else
                             <tr>
                                 Nenhum Pedido Encontrado
                             </tr>
-                        @endforelse
+                        @endif
 
                         </tbody>
                     </table>
