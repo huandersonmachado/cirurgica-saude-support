@@ -28,17 +28,17 @@
                             <th class="w-1/4">Data Do Pedido</th>
                             <th class="w-1/4">Número Loja Virtual</th>
                             <th class="w-1/4">Número No Bling</th>
-                            <th class="w-2/4">Cliente</th>
-                            <th class="w-2/4">CPF</th>
+                            <th class="px-10">Cliente</th>
+                            <th class="px-10">CPF</th>
                             <th class="w-1/4">Nota Fiscal</th>
-                            <th class="w-2/4">Total da Compra</th>
-                            <th class="w-2/4">Ações</th>
+                            <th class="px-9">Total da Compra</th>
+                            <th class="px-9">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
                         @if(array_key_exists('pedidos', $pedidosBling['retorno']))
                             @forelse($pedidosBling['retorno']['pedidos'] as $pedido)
-                                <tr class={{ ($loop->index%2 == 0) ? 'bg-gray-100' : ''  }}>
+                                <tr class="{{ ($loop->index%2 == 0) ? 'bg-gray-100' : ''  }} text-sm">
                                     <td class="text-center">{{ $pedido['pedido']['data']  }}</td>
                                     <td class="text-center">{{ isset($pedido['pedido']['numeroPedidoLoja']) ?  $pedido['pedido']['numeroPedidoLoja'] : '' }}</td>
                                     <td class="text-center">{{ $pedido['pedido']['numero']  }}</td>

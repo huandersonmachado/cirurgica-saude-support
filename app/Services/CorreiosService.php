@@ -6,6 +6,7 @@ namespace App\Services;
 use PhpSigep\Bootstrap;
 use PhpSigep\Config;
 use PhpSigep\Model\AccessData;
+use PhpSigep\Model\AccessDataHomologacaoReversa;
 use PhpSigep\Model\Destinatario;
 use PhpSigep\Model\Remetente;
 use PhpSigep\Model\ObjCol;
@@ -19,28 +20,28 @@ class CorreiosService
     {
 
         $config = new Config();
-        $accessData = new AccessData();
+        $accessData = new AccessDataHomologacaoReversa();
+        $config->setAccessData($accessData);
 //        $accessData->setCartaoPostagem(env('LOGISTICA_CARTAO'));
 //        $accessData->setCnpjEmpresa('LOGISTICA_CNPJ_EMPRESA');
 //        $accessData->setCodAdministrativo(env('LOGISTICA_CODIG_ADM'));
 //        $accessData->setNumeroContrato(env('LOGISTICA_CONTRATO'));
-        $accessData->setUsuario(env('LOGISTICA_USUARIO'));
-        $accessData->setSenha(env('LOGISTICA_SENHA'));
+//        $accessData->setUsuario(env('LOGISTICA_USUARIO'));
+//        $accessData->setSenha(env('LOGISTICA_SENHA'));
 
-        $config->setEnv(Config::ENV_PRODUCTION);
+        $config->setEnv(Config::ENV_DEVELOPMENT);
         $config->setCacheOptions(
             array(
                 'storageOptions' => array(
                     'enabled' => false,
-                    'ttl' => 10,// "time to live" de 10 segundos
-                    'cacheDir' => sys_get_temp_dir(), // Opcional. Quando não inforado é usado o valor retornado de "sys_get_temp_dir()"
+                    'ttl' => 10,
+                    'cacheDir' => sys_get_temp_dir(),
                 ),
             )
 
         );
 
         Bootstrap::start($config);
-
 
         $destinatario = new Destinatario();
         $destinatario->setNome('Cirúrgica Saúde Online');

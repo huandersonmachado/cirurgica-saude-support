@@ -32,9 +32,12 @@ class LogisticaReversaController extends Controller
 
     public function solicitarPostagem($numero)
     {
-        $cliente = $this->blingService->getPedido($numero)->collect()['retorno']['pedidos'][0]['pedido']['cliente'];
-        $result = $this->correiosService->geraPostagemReversa($cliente);
-        dd($result);
-        return $result;
+        try {
+            $cliente = $this->blingService->getPedido($numero)->collect()['retorno']['pedidos'][0]['pedido']['cliente'];
+            $result = $this->correiosService->geraPostagemReversa($cliente)->toArray();
+            return view('logisticaReversa.postagemGerada', compact('result'));
+        } catch(\Exception $exception) {
+            return view('logisticaReversa.postagemGerada', compact('exception'));
+        }
     }
 }
