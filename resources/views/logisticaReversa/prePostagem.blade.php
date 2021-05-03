@@ -19,8 +19,8 @@
                             <div>
                                 <x-label for="sms" value="Enviar SMS" />
                                 <x-select name="sms" class="block mt-1 w-full">
-                                    <option>Não</option>
-                                    <option>Sim</option>
+                                    <option value="N">Não</option>
+                                    <option value="S">Sim</option>
                                 </x-select>
                             </div>
                             <div>
