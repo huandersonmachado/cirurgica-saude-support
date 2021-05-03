@@ -82,10 +82,9 @@ class CorreiosService
             $postagem->setCodigo_servico(request('servico'));
 
             $phpSigep = new Real();
-            dd($phpSigep->solicitarPostagemReversa($postagem));
             return $phpSigep->solicitarPostagemReversa($postagem);
         } catch (\Exception $exception) {
-            dd($exception);
+            return "Erro";
         }
     }
 

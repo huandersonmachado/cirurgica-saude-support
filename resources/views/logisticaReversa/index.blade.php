@@ -46,7 +46,7 @@
                                     <td class="text-center">{{ $pedido->getNumeroNota()  }}</td>
                                     <td class="text-center">R${{ $pedido->getValorTotalVenda()  }}</td>
                                     <td class="text-center">
-                                        <a class="inline-flex items-center px-4 py-2 bg-green-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" href="/prePostagem?pedido={{request()->query('pedido')}}">Gerar Postagem</a>
+                                        <a class="inline-flex items-center px-4 py-2 bg-green-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" href="/prePostagem?pedido={{request()->query('pedido')}}">Gerar Reversa</a>
 {{--                                        <form method="POST" action="{{ route('solicitarPostagem', $pedido->getNumeroPedido()) }}">--}}
 {{--                                            @csrf--}}
 {{--                                            <button--}}
