@@ -36,26 +36,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(array_key_exists('pedidos', $pedidosBling['retorno']))
-                            @forelse($pedidosBling['retorno']['pedidos'] as $pedido)
+                            @forelse($pedidosBling as $pedido)
                                 <tr class="{{ ($loop->index%2 == 0) ? 'bg-gray-100' : ''  }} text-sm">
-                                    <td class="text-center">{{ $pedido['pedido']['data']  }}</td>
-                                    <td class="text-center">{{ isset($pedido['pedido']['numeroPedidoLoja']) ?  $pedido['pedido']['numeroPedidoLoja'] : '' }}</td>
-                                    <td class="text-center">{{ $pedido['pedido']['numero']  }}</td>
-                                    <td class="text-center">{{ $pedido['pedido']['cliente']['nome']  }}</td>
-                                    <td class="text-center">{{ $pedido['pedido']['cliente']['cnpj']  }}</td>
-                                    <td class="text-center">{{ $pedido['pedido']['nota']['numero'] ?? ''  }}</td>
-                                    <td class="text-center">R${{ $pedido['pedido']['totalvenda']  }}</td>
+                                    <td class="text-center">{{ $pedido->getDataPedido()  }}</td>
+                                    <td class="text-center">{{ $pedido->getNumeroPedidoLojaVirtual() }}</td>
+                                    <td class="text-center">{{ $pedido->getNumeroPedido()  }}</td>
+                                    <td class="text-center">{{ $pedido->getNome()  }}</td>
+                                    <td class="text-center">{{ $pedido->getCnpj()  }}</td>
+                                    <td class="text-center">{{ $pedido->getNumeroNota()  }}</td>
+                                    <td class="text-center">R${{ $pedido->getValorTotalVenda()  }}</td>
                                     <td class="text-center">
-                                        <form method="POST" action="{{ route('solicitarPostagem', $pedido['pedido']['numero']) }}">
-                                            @csrf
-                                            <button
-                                                onclick="event.preventDefault();
-                                                    this.closest('form').submit();"
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                Gerar Reversa
-                                            </button>
-                                        </form>
+                                        <a class="inline-flex items-center px-4 py-2 bg-green-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" href="/prePostagem?pedido={{request()->query('pedido')}}">Gerar Postagem</a>
+{{--                                        <form method="POST" action="{{ route('solicitarPostagem', $pedido->getNumeroPedido()) }}">--}}
+{{--                                            @csrf--}}
+{{--                                            <button--}}
+{{--                                                onclick="event.preventDefault();--}}
+{{--                                                    this.closest('form').submit();"--}}
+{{--                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">--}}
+{{--                                                Gerar Reversa--}}
+{{--                                            </button>--}}
+{{--                                        </form>--}}
 
                                     </td>
                                 </tr>
@@ -64,11 +64,6 @@
                                     Nenhum Pedido Encontrado
                                 </tr>
                             @endforelse
-                        @else
-                            <tr>
-                                Nenhum Pedido Encontrado
-                            </tr>
-                        @endif
 
                         </tbody>
                     </table>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BlingService;
-use App\Services\CorreiosService;
+use App\Services\Correios\CorreiosService;
 use Illuminate\Http\Request;
 
 class LogisticaReversaController extends Controller
@@ -21,20 +21,27 @@ class LogisticaReversaController extends Controller
     public function index()
     {
         if (request()->query('pedido') != null) {
-            $pedidosBling = $this->blingService->getPedido(request()->query('pedido'))->collect();
+            $pedidosBling = $this->blingService->getPedido(request()->query('pedido'));
         } else {
-            $pedidosBling = $this->blingService->getPedidos()->collect();
+            $pedidosBling = $this->blingService->getPedidos();
+        }
+        return view('logisticaReversa.index', compact('pedidosBling'));
+    }
 
+    public function prePostagem()
+    {
+        if (request()->query('pedido') == null) {
+            return redirect()->back();
         }
 
-        return view('logisticaReversa.index', compact('pedidosBling'));
+        return view('logisticaReversa.prePostagem');
     }
 
     public function solicitarPostagem($numero)
     {
         try {
-            $cliente = $this->blingService->getPedido($numero)->collect()['retorno']['pedidos'][0]['pedido']['cliente'];
-            $result = $this->correiosService->geraPostagemReversa($cliente)->toArray();
+            $cliente = $this->blingService->getPedido($numero);
+            $result = $this->correiosService->geraPostagemReversa($cliente[0])->toArray();
             return view('logisticaReversa.postagemGerada', compact('result'));
         } catch(\Exception $exception) {
             return view('logisticaReversa.postagemGerada', compact('exception'));
